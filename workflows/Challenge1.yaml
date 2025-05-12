@@ -1,0 +1,38 @@
+name: Challenge Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    name: Setup Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print date
+        run: date
+
+      - name: Show working directory
+        run: pwd
+
+      - name: List contents
+        run: ls -la
+
+  job2:
+    name: Python and Artifact Job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Show Python Version
+        run: python --version
+
+      - name: Install pandas
+        run: pip install pandas
+
+      - name: Create Python artifact
+        run: |
+          echo "# This is my python artifact" > artifact.py
+          python artifact.py || true
